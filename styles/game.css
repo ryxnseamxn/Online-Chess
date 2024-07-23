@@ -1,0 +1,26 @@
+* {
+    /* box-sizing: border-box; */
+    font-family: "Roboto", sans-serif; 
+}
+
+body,html { 
+    background-color: #36454F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.chessBoard {
+    width: 800px; 
+    height: 800px; 
+    border: 5px solid #000; 
+    margin: auto; 
+    line-height: 0px; 
+}
+
+.chessSquare { 
+    width: 100px; 
+    height: 100px; 
+    display: inline-block; 
+}
