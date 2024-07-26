@@ -6,7 +6,7 @@
 body,html { 
     background-color: #36454F;
     display: flex;
-    align-items: center;
+    align-items:start;
     justify-content: center;
 }
 
@@ -43,6 +43,10 @@ body,html {
 
 .title {
     font-weight: bolder; 
+    margin: 0px 0px 55px 0px; 
+    padding: 0 3px; 
+    letter-spacing: 1px;
+    font-size: 5rem;
 }
 
 .buttons {
