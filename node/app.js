@@ -1,6 +1,7 @@
 var url = require('url'); 
 var fs = require('fs'); 
 var path = require('path'); 
+const dirname = 'C:\\Users\\Ryan\\documents\\online-chess'; 
 
 renderHTML = (path, res) => {
     fs.readFile(path, null, (err, data) => {
@@ -44,30 +45,24 @@ serveJS = (path, res) => {
 
 module.exports = {
     handleRequest: (req, res) => {
-        const parsedUrl = url.parse(req.url);
-        const pathname = parsedUrl.pathname;
-        console.log(`pathname: ${pathname}`); 
+        var pathname = req.url
+        var folder = pathname.split('/')[1];
+        var file = pathname.split('/')[3]; 
+        console.log(folder); 
 
-        switch (pathname) {
-            case '/':
-                renderHTML(path.join(__dirname, '../login.html'), res);
+        switch (folder) {
+            case '':
+                renderHTML(path.join(dirname, 'pages\\login.html'), res);
                 break; 
-            case '/lobby':
-                renderHTML(path.join(__dirname, '../lobby.html'), res); 
+            case 'pages':
+                renderHTML(path.join(dirname, pathname + ".html"), res);
                 break; 
-            case '/game':
-                renderHTML(path.join(__dirname, '../game.html'), res);
+            case 'styles': 
+                serveCSS(path.join(dirname, pathname), res);
                 break; 
-            default:
-                if (pathname.endsWith('.css')) {
-                    serveCSS(path.join(__dirname, '..', pathname), res);
-                } else if (pathname.endsWith('.js')){
-                    serveJS(path.join(__dirname, '..', pathname), res)
-                    console.log(path.join(__dirname, pathname));
-                } else {
-                    res.writeHead(404); 
-                    res.end('Route not defined'); 
-                }
+            case 'scripts':
+                serveJS(path.join(dirname, pathname), res);
+                break; 
         }
     }
 }
