@@ -48,7 +48,7 @@ module.exports = {
         var pathname = req.url
         var folder = pathname.split('/')[1];
         var file = pathname.split('/')[3]; 
-        console.log(folder); 
+        console.log(pathname); 
 
         switch (folder) {
             case '':
