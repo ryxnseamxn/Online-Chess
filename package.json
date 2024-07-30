@@ -1,0 +1,22 @@
+{
+  "name": "online-chess",
+  "version": "1.0.0",
+  "description": "a project to learn about fullstack web development ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryxnseamxn/Online-Chess.git"
+  },
+  "author": "ryxnseamxn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryxnseamxn/Online-Chess/issues"
+  },
+  "homepage": "https://github.com/ryxnseamxn/Online-Chess#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
