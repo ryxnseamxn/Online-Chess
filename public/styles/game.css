@@ -10,6 +10,36 @@ body,html {
     justify-content: center;
 }
 
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin:30vh; 
+}
+
+.button { 
+    border: 3px solid black; 
+    width: 100px; 
+    height: 50px; 
+    border-radius: 25px;
+    transition: all 0.5s;
+    margin: auto; 
+    background: white;
+    font-size: auto;
+}
+
+.buttons {
+    display: flex; 
+    flex-direction: column;
+    padding: 15px; 
+}
+
+.button:hover {
+    background-color: black;
+    color: white; 
+    cursor: pointer; 
+}
 
 .chessBoard {
     width: 800px; 
