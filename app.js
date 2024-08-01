@@ -5,6 +5,7 @@ const path = require('path');
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/pages/login.html')); 
+  res.redirect('/pages/login.html');
 })
 
 app.listen(port, () => {
