@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/ryxnseamxn/Online-Chess#readme",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "pg": "^8.12.0",
+    "pg-promise": "^11.9.1"
   }
 }
