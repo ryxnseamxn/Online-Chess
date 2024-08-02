@@ -1,18 +1,28 @@
-const express = require('express')
-const app = express()
-const port = 3000
-const path = require('path'); 
+const express = require('express');
+const db = require('./connection');
+const App = express();
+const Path = require('path'); 
+const port = 3000;
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/pages/login.html')); 
+App.get('/', (req, res) => {
+  res.sendFile(Path.join(__dirname, 'public/pages/login.html')); 
   res.redirect('/pages/login.html');
 })
 
-app.listen(port, () => {
-  console.log(path.join(__dirname, 'public/pages/login.html'));
-  console.log(`Example app listening on port ${port}`)
+App.post('/public/pages/login.html', async (req, res) => {
+  const { username, password } = res.body; 
+  const result = db.getUsers(username, password); 
+  if(!result){
+    return res.json({ success: false, message: 'Username is incorrect' });
+  }
+  return res.json({ success: true, message: 'Login successful' });
 })
 
-app.use(express.static(__dirname + '/public')); 
+App.listen(port, () => {
+  console.log(Path.join(__dirname, 'public/pages/login.html'));
+  console.log(`Example App listening on port ${port}`);
+})
 
-module.exports = app; 
+App.use(express.static(__dirname + '/public')); 
+
+module.exports = App; 
