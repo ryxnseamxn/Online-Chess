@@ -1,13 +1,10 @@
 let login = async () => {
-    const email = document.querySelector('#username').value; 
-    const password = document.querySelector('#password').value; 
+    const emailField = document.querySelector('#username').value; 
+    const passwordField = document.querySelector('#password').value; 
 
-    const response = await fetch('/public/pages/login.html', {
+    const response = await fetch('/pages/login.html', {
         method: 'POST', 
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ email: emailField, password: passwordField })
     });
 
     console.log(response); 
