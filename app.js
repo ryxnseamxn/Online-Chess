@@ -3,15 +3,19 @@ const db = require('./connection');
 const App = express();
 const Path = require('path'); 
 const port = 3000;
+App.use(express.json());
+App.use(express.urlencoded({ extended: true }));
 
 App.get('/', (req, res) => {
   res.sendFile(Path.join(__dirname, 'public/pages/login.html')); 
   res.redirect('/pages/login.html');
 })
 
-App.post('/public/pages/login.html', async (req, res) => {
-  const { username, password } = res.body; 
-  const result = db.getUsers(username, password); 
+App.post('/pages/login.html', async (req, res) => {
+  console.log('Server side acknowledgement'); 
+  console.log(`Request body: ${JSON.stringify(req.body)}`); 
+  const { email, password } = req.body; 
+  const result = db.getUsers(email, password); 
   if(!result){
     return res.json({ success: false, message: 'Username is incorrect' });
   }
