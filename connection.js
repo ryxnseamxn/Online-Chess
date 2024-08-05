@@ -2,9 +2,9 @@ const Pool = require('pg').Pool;
 const pool = new Pool({
     user: 'chess', 
     host: 'localhost', 
-    database: 'chess-api', 
+    database: 'chess_api', 
     password: 'online-chess', 
-    port: '5432'
+    port: 5432
 })
 
 
@@ -12,13 +12,11 @@ const pool = new Pool({
 module.exports = {
     getUsers: (username, password) => {
         pool.query('SELECT * FROM users WHERE username = $1 AND password = $2', [username, password], (err, result) => {
-            if(error){
-                throw error; 
+            if(err){
+                console.log(`ERROR: ${err.message}`);
+                throw err; 
             }
-            if(result != null){
-                return true; 
-            }
-            return false;
+            return result != null;
         });
     }
     

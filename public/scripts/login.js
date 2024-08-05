@@ -4,6 +4,9 @@ let login = async () => {
 
     const response = await fetch('/pages/login.html', {
         method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ email: emailField, password: passwordField })
     });
 

@@ -4,7 +4,6 @@ const App = express();
 const Path = require('path'); 
 const port = 3000;
 App.use(express.json());
-App.use(express.urlencoded({ extended: true }));
 
 App.get('/', (req, res) => {
   res.sendFile(Path.join(__dirname, 'public/pages/login.html')); 
