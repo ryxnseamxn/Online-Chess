@@ -10,5 +10,9 @@ let login = async () => {
         body: JSON.stringify({ email: emailField, password: passwordField })
     });
 
-    console.log(response); 
+    const { success, message } = await response.json(); 
+    if(success){
+        window.location.href = '/pages/lobby.html'; 
+    }
+    alert('Login Failed!'); 
 }

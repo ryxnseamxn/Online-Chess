@@ -11,10 +11,9 @@ App.get('/', (req, res) => {
 })
 
 App.post('/pages/login.html', async (req, res) => {
-  console.log('Server side acknowledgement'); 
-  console.log(`Request body: ${JSON.stringify(req.body)}`); 
   const { email, password } = req.body; 
-  const result = db.getUsers(email, password); 
+  const result = await db.getUsers(email, password); 
+  console.log(`DB result: ${result}`); 
   if(!result){
     return res.json({ success: false, message: 'Username is incorrect' });
   }
