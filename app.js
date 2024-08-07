@@ -13,7 +13,6 @@ App.get('/', (req, res) => {
 App.post('/pages/login.html', async (req, res) => {
   const { email, password } = req.body; 
   const result = await db.getUsers(email, password); 
-  console.log(`DB result: ${result}`); 
   if(!result){
     return res.json({ success: false, message: 'Username is incorrect' });
   }
@@ -21,7 +20,6 @@ App.post('/pages/login.html', async (req, res) => {
 })
 
 App.listen(port, () => {
-  console.log(Path.join(__dirname, 'public/pages/login.html'));
   console.log(`Example App listening on port ${port}`);
 })
 

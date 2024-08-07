@@ -11,10 +11,7 @@ const pool = new Pool({
 
 module.exports = {
     getUsers: async (username, password) => {
-        console.log(`username: ${username} | password: ${password}`); 
-        const result = await pool.query('SELECT * FROM users WHERE username = $1 AND password = $2', [username, password]); 
-        console.log(`result: ${JSON.stringify(result.rowCount)}`); 
+        const result = await pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [username, password]); 
         return result.rowCount > 0; 
-    }
-    
+    }   
 }
