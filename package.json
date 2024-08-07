@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ryxnseamxn/Online-Chess#readme",
   "dependencies": {
+    "@chrisoakman/chessboardjs": "^1.0.0",
     "express": "^4.19.2",
     "pg": "^8.12.0",
     "pg-promise": "^11.9.1"
