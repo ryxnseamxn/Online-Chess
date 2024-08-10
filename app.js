@@ -19,6 +19,19 @@ App.post('/pages/login.html', async (req, res) => {
   return res.json({ success: true, message: 'Login successful' });
 })
 
+App.post('/pages/signup.html', async (req, res) => {
+  const { email, password } = req.body; 
+  const exists = await db.getUsers(email, password); 
+  if(exists){
+    return res.json({ success: false, message: 'Email already exists' });
+  }
+  const result = await db.newUser(email, password); 
+  if(!result){
+    return res.json({ success: false, message: 'Sign up failed' });
+  }
+  return res.json({ success: true, message: 'Sign up successful' });
+})
+
 App.listen(port, () => {
   console.log(`Example App listening on port ${port}`);
 })
