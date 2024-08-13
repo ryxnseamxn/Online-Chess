@@ -1,16 +1,31 @@
+//express declarations 
 const express = require('express');
-const db = require('./connection');
-const App = express();
+const app = express();
 const Path = require('path'); 
+//http declarations 
+const http = require('http'); 
+const server = http.createServer(app); 
 const port = 3000;
-App.use(express.json());
+//socket.io declarations
+const { Server } = require('socket.io'); 
+const io = new Server(server); 
+const db = require('./connection');
 
-App.get('/', (req, res) => {
+//Parse files with json payloads 
+app.use(express.json());
+//Serve static files `
+app.use(express.static(__dirname + '/public')); 
+
+//GET requests
+
+app.get('/', (req, res) => {
   res.sendFile(Path.join(__dirname, 'public/pages/login.html')); 
   res.redirect('/pages/login.html');
 })
 
-App.post('/pages/login.html', async (req, res) => {
+//POST requests 
+
+app.post('/pages/login.html', async (req, res) => {
   const { email, password } = req.body; 
   const result = await db.getUsers(email, password); 
   if(!result){
@@ -19,7 +34,7 @@ App.post('/pages/login.html', async (req, res) => {
   return res.json({ success: true, message: 'Login successful' });
 })
 
-App.post('/pages/signup.html', async (req, res) => {
+app.post('/pages/signup.html', async (req, res) => {
   const { email, password } = req.body; 
   const exists = await db.getUsers(email, password); 
   if(exists){
@@ -32,11 +47,16 @@ App.post('/pages/signup.html', async (req, res) => {
   return res.json({ success: true, message: 'Sign up successful' });
 })
 
-App.listen(port, () => {
-  console.log(`Example App listening on port ${port}`);
+
+//socket handling 
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
+
+//start server 
+server.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 })
 
-App.use(express.static(__dirname + '/public')); 
 
-
-module.exports = App; 
+module.exports = app; 
