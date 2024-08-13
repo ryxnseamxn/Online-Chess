@@ -2,7 +2,7 @@
   "name": "online-chess",
   "version": "1.0.0",
   "description": "a project to learn about fullstack web development ",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,6 +21,7 @@
     "chess.js": "^1.0.0-beta.8",
     "express": "^4.19.2",
     "pg": "^8.12.0",
-    "pg-promise": "^11.9.1"
+    "pg-promise": "^11.9.1",
+    "socket.io": "^4.7.5"
   }
 }

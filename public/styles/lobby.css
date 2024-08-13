@@ -36,6 +36,7 @@ nav {
     transition: all 0.5s;
     background: white;
     font-size: auto;
+    padding: auto; 
 }
 
 .buttons {
