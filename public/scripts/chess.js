@@ -1,8 +1,22 @@
+import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
 var board1 = null
 var game = new Chess()
 var $status = $('#status')
 var $fen = $('#fen')
 var $pgn = $('#pgn')
+
+const socket = io();
+
+var form = document.querySelector('#chat');
+var input = document.querySelector('#input');
+
+form.addEventListener('submit', (e) =>{
+  e.preventDefault();
+  if(input.value){
+    socket.emit('chat message', input.value);
+    input.value = ''; 
+  }
+}); 
 
 function onDragStart (source, piece, position, orientation) {
   // do not pick up pieces if the game is over

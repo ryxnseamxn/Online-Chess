@@ -55,8 +55,13 @@ app.post('/pages/signup.html', async (req, res) => {
 //socket handling 
 io.on('connection', (socket) => {
   console.log('a user connected');
+  
   socket.on('disconnect', () => {
     console.log('A user disconnected'); 
+  });
+  
+  socket.on('chat message', (msg) => {
+    console.log(`Message: ${msg}`);
   });
 });
 
