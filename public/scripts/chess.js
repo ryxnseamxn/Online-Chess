@@ -26,6 +26,7 @@ socket.on('chat message', (msg) => {
   window.scrollTo(0, document.body.scrollHeight);
 });
 
+
 function onDragStart (source, piece, position, orientation) {
   // do not pick up pieces if the game is over
   if (game.game_over()) return false
