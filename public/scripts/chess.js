@@ -7,6 +7,7 @@ var $pgn = $('#pgn')
 
 const socket = io();
 
+var messages = document.querySelector('#messages'); 
 var form = document.querySelector('#chat');
 var input = document.querySelector('#input');
 
@@ -17,6 +18,14 @@ form.addEventListener('submit', (e) =>{
     input.value = ''; 
   }
 }); 
+
+socket.on('chat message', (msg) => {
+  var item = document.createElement('li');
+  item.textContent = msg; 
+  messages.appendChild(item);
+  window.scrollTo(0, document.body.scrollHeight);
+});
+
 
 function onDragStart (source, piece, position, orientation) {
   // do not pick up pieces if the game is over

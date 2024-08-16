@@ -18,6 +18,12 @@ body,html {
     margin:30vh; 
 }
 
+li {
+    font-family: 'Courier New', Courier, monospace; 
+    color: white;
+    font-size: 1.5rem;
+}
+
 #messages {
     list-style-type: none;
 }
