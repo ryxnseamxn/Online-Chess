@@ -63,6 +63,10 @@ io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
     io.emit('chat message', msg);
   });
+
+  socket.on('chess move', (move) => {
+    io.emit('chess move', move)
+  });
 });
 
 //start server 
