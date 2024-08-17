@@ -26,6 +26,10 @@ socket.on('chat message', (msg) => {
   window.scrollTo(0, document.body.scrollHeight);
 });
 
+socket.on('chess move', (move) => {
+  board1.position(move); 
+})
+
 
 function onDragStart (source, piece, position, orientation) {
   // do not pick up pieces if the game is over
@@ -56,6 +60,7 @@ function onDrop (source, target) {
 // for castling, en passant, pawn promotion
 function onSnapEnd () {
   board1.position(game.fen())
+  socket.emit('chess move', game.fen())
 }
 
 function updateStatus () {
@@ -100,5 +105,6 @@ var config = {
     onSnapEnd: onSnapEnd
 }
 var board1 = Chessboard('board1', config);
+
 
 updateStatus()
