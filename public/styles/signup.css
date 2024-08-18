@@ -74,6 +74,10 @@ nav {
     font-size: x-small;
 }
 
+.main > .button {
+    margin: 2rem; 
+}
+
 .button:hover {
     background-color: black;
     color: white; 

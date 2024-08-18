@@ -20,6 +20,7 @@
     "@chrisoakman/chessboardjs": "^1.0.0",
     "chess.js": "^1.0.0-beta.8",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
     "pg": "^8.12.0",
     "pg-promise": "^11.9.1",
     "socket.io": "^4.7.5"
