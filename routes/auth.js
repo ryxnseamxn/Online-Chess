@@ -1,6 +1,12 @@
 const express = require('express'); 
 const router = express.Router(); 
 const db = require('../connection'); 
+const {
+    createAccessToken,
+    createRefreshToken,
+    sendAccessToken,
+    sendRefreshToken,
+  } = require("../utils/token");
 
 router.post("pages/signup.html", async (req, res) => {
     try {
@@ -30,6 +36,21 @@ router.post("pages/signup.html", async (req, res) => {
 
 routes.post('pages/login.html', async (req, res) => {
     try { 
+        const { email, password } = req.body; 
+        const user = db.getUsers(email, password); 
+
+        if(!user){
+            return res.json({
+                message: 'User does not exist', 
+                type: 'Error', 
+            })
+        }
+
+        const accessToken = createAccessToken(email); 
+        const refreshToken = createRefreshToken(email); 
+        db.addToken(email, password, refreshToken); 
+        sendRefreshToken(res, refreshToken);
+        sendAccessToken(req, res, accessToken);
     } catch (error) {
         res.status(500).json({
             type: 'error', 
