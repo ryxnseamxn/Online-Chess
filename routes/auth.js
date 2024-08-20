@@ -7,7 +7,10 @@ const {
     sendAccessToken,
     sendRefreshToken,
   } = require("../utils/token");
+const { verify } = require('jsonwebtoken'); 
 
+
+//signup logic 
 router.post("pages/signup.html", async (req, res) => {
     try {
         const {email, password } = req.body; 
@@ -33,6 +36,8 @@ router.post("pages/signup.html", async (req, res) => {
         });
     }
 }); 
+
+//login logic 
 
 routes.post('pages/login.html', async (req, res) => {
     try { 
@@ -60,4 +65,48 @@ routes.post('pages/login.html', async (req, res) => {
     }
 });
 
+//sign out logic 
+router.post("/logout", (_req, res) => {
+    // clear cookies
+    res.clearCookie("refreshtoken");
+    return res.json({
+      message: "Logged out successfully! 🤗",
+      type: "success",
+    });
+  });
+
+//Refresh token request 
+router.post("/refresh_token", (req, res) => {
+    try {
+        const { refreshtoken } = req.cookies; 
+        if(!refreshtoken){
+            return res.status(500).json({
+                message: 'No refresh token', 
+                error, 
+            });
+        }
+        let id; 
+        try{
+            id = verify(refreshtoken, process.env.REFRESH_TOKEN_SECRET).id; 
+        } catch (error) {
+            return res.status(500).json({
+                message: 'Invalid refresh tokne', 
+                error, 
+            }); 
+        }
+        if (!id){
+            return res.status(500).json({
+              message: "Invalid refresh token! 🤔",
+              type: "error",
+            });        
+        }
+        
+    }catch (error) { 
+        res.status(500).json({
+            type: "error", 
+            message: "Error refreshing token", 
+            error,
+        })
+    }
+})
 module.exports = router; 
