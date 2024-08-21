@@ -78,6 +78,7 @@ router.post("/logout", (_req, res) => {
 //Refresh token request 
 router.post("/refresh_token", (req, res) => {
     try {
+        const { email, password } = req.body; 
         const { refreshtoken } = req.cookies; 
         if(!refreshtoken){
             return res.status(500).json({
@@ -94,13 +95,39 @@ router.post("/refresh_token", (req, res) => {
                 error, 
             }); 
         }
+        const user = db.getById(email, id); 
+        if (!user){
+            return res.status(500).json({
+              message: "User doesn't exist! 😢",
+              type: "error",
+            });
+        }
+
+        if(user !== refreshtoken){
+            return res.status(500).json({
+                message: "Invalid refresh token! 🤔",
+                type: "error",
+            });
+        }
+
+        const accessToken = createAccessToken(user); 
+        const refreshToken = createRefreshToken(user); 
+
+        db.addToken(email, password, accessToken);
+        sendRefreshToken(res, refreshToken); 
+        return res.json({
+            message: "Refreshed successfully! 🤗",
+            type: "success",
+            accessToken,
+        });
+        
         if (!id){
             return res.status(500).json({
               message: "Invalid refresh token! 🤔",
               type: "error",
             });        
         }
-        
+
     }catch (error) { 
         res.status(500).json({
             type: "error", 
