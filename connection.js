@@ -22,4 +22,13 @@ module.exports = {
     addToken: async (username, password, refresh_token) => {
         await pool.query('UPDATE users SET refresh_token = $1 WHERE username = $2 AND password = $3', [refresh_token, username, password]); 
     },
+    getById: async (username, refresh_token) => {
+        const result = await pool.query('SELECT * FROM users WHERE username = $1 AND refresh_token = $2', [username, refresh_token]);
+        return result.rowCount === 1; 
+    },
+    getRefreshToken: async(username) => {
+        const result = await pool.query('SELECT refresh_token FROM users WHERE username = $1', [username]); 
+        const id = result.fields[-1];
+        return id ?? false; 
+    }
 }
