@@ -95,7 +95,7 @@ router.post("/refresh_token", (req, res) => {
                 error, 
             }); 
         }
-        const user = db.getById(email, id); 
+        const user = db.getById(id); 
         if (!user){
             return res.status(500).json({
               message: "User doesn't exist! 😢",
