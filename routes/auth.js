@@ -8,12 +8,36 @@ const {
     sendRefreshToken,
   } = require("../utils/token");
 const { verify } = require('jsonwebtoken'); 
+const { protected } = require('../utils/protected');
 
+//get request for protected route 
+router.get('/protected', protected, async (req, res) => {
+    try {
+        if (req.user)
+            return res.json({
+            message: "You are logged in! 🤗",
+            type: "success",
+            user: req.user,
+            });
+        return res.status(500).json({
+            message: "You are not logged in! 😢",
+            type: "error",
+        });
+    } catch (error) {
+        return res.status(500).json({
+            type: 'error', 
+            message: 'An error has occured', 
+            error, 
+        })
+    }
+})
 
 //signup logic 
-router.post("pages/signup.html", async (req, res) => {
+router.post("/pages/signup.html", async (req, res) => {   
+    console.log(`Auth.js endpoint`); 
     try {
         const {email, password } = req.body; 
+        console.log(email, password); 
         //check if user exists 
         let user = db.getUsers(email, password); 
         if(user){
@@ -39,7 +63,8 @@ router.post("pages/signup.html", async (req, res) => {
 
 //login logic 
 
-routes.post('pages/login.html', async (req, res) => {
+router.post('/pages/login.html', async (req, res) => {
+    console.log(`Auth.js endpoint`); 
     try { 
         const { email, password } = req.body; 
         const user = db.getUsers(email, password); 
