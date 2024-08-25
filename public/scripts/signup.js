@@ -5,7 +5,7 @@ let signup = async () => {
         alert('Username and password must be greater than 4 characters'); 
         return; 
     }
-    const response = await fetch('signup.html', {
+    const response = await fetch('signup', {
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json'
@@ -13,11 +13,12 @@ let signup = async () => {
         body: JSON.stringify({ email: emailField, password: passwordField })
     });
 
-    const { success, message } = await response.json(); 
+    const success = await response.json(); 
+    console.log(`Success: ${success}`);     
     if(success){
+        alert('Signup Successful!')
         window.location.href = '/pages/login.html'; 
         console.log(`success: ${success}`); 
-        alert('Signup Successful!')
     }
     alert('Email Already Exists!'); 
 }
