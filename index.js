@@ -28,33 +28,6 @@ app.get('/', (req, res) => {
   res.redirect('/pages/login.html');
 })
 
-//POST requests 
-
-/*
-app.post('/pages/login.html', async (req, res) => {
-  const { email, password } = req.body; 
-  const result = await db.getUsers(email, password); 
-  if(!result){
-    return res.json({ success: false, message: 'Username is incorrect' });
-  }
-  return res.json({ success: true, message: 'Login successful' });
-})
-*/  
-
-/*
-app.post('/pages/signup.html', async (req, res) => {
-  const { email, password } = req.body; 
-  const exists = await db.getUsers(email, password); 
-  if(exists){
-    return res.json({ success: false, message: 'Email already exists' });
-  }
-  const result = await db.newUser(email, password); 
-  if(!result){
-    return res.json({ success: false, message: 'Sign up failed' });
-  }
-  return res.json({ success: true, message: 'Sign up successful' });
-})
-*/
 
 //socket handling 
 io.on('connection', (socket) => {

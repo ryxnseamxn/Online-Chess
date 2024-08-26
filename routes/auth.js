@@ -34,6 +34,7 @@ router.get('/protected', protected, async (req, res) => {
 
 //signup logic 
 router.post("/pages/signup", async (req, res) => {   
+    console.log(`Auth.js endpoint`); 
     try {
         const {email, password } = req.body; 
         //check if user exists 
@@ -62,11 +63,9 @@ router.post("/pages/signup", async (req, res) => {
 //login logic 
 
 router.post('/pages/login.html', async (req, res) => {
-    console.log(`Auth.js endpoint`); 
     try { 
         const { email, password } = req.body; 
-        const user = db.getUsers(email, password); 
-
+        const user = await db.getUsers(email, password);
         if(!user){
             return res.json({
                 message: 'User does not exist', 

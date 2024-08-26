@@ -1,4 +1,5 @@
 const { sign } = require('jsonwebtoken'); 
+require('dotenv').config(); 
 
 const createAccessToken = (id) => {
     return sign({ id }, process.env.ACCESS_TOKEN_SECRET, {
