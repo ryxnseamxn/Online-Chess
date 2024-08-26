@@ -5,7 +5,7 @@ let signup = async () => {
         alert('Username and password must be greater than 4 characters'); 
         return; 
     }
-    const response = await fetch('signup.html', {
+    const response = await fetch('signup', {
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json'

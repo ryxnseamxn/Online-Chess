@@ -34,7 +34,6 @@ router.get('/protected', protected, async (req, res) => {
 
 //signup logic 
 router.post("/pages/signup", async (req, res) => {   
-    console.log(`Auth.js endpoint`); 
     try {
         const {email, password } = req.body; 
         //check if user exists 
