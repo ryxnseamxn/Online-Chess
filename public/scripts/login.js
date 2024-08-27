@@ -5,7 +5,7 @@ let login = async () => {
         alert('Username and password must be greater than 4 characters'); 
         return; 
     }
-    const response = await fetch('/pages/login.html', {
+    const response = await fetch('/pages/login', {
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json'
@@ -13,9 +13,10 @@ let login = async () => {
         body: JSON.stringify({ email: emailField, password: passwordField })
     });
 
-    const { success, message } = await response.json(); 
-    if(success){
+    const { accessToken, message, type } = await response.json(); 
+    if(type === 'success'){
+        console.log(`Entered Success`); 
         window.location.href = '/pages/lobby.html'; 
     }
-    alert('Login Failed!'); 
+    alert('Login Failed'); 
 }

@@ -14,11 +14,9 @@ let signup = async () => {
     });
 
     const success = await response.json(); 
-    console.log(`Success: ${success}`);     
-    if(success){
+    if(success.type === 'success'){
         alert('Signup Successful!')
         window.location.href = '/pages/login.html'; 
-        console.log(`success: ${success}`); 
     }
     alert('Email Already Exists!'); 
 }

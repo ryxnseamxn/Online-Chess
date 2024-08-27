@@ -1,3 +1,5 @@
+//env variables 
+require('dotenv').config(); 
 //express declarations 
 const express = require('express');
 const app = express();

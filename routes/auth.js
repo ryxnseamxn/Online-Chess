@@ -61,7 +61,7 @@ router.post("/pages/signup", async (req, res) => {
 
 //login logic 
 
-router.post('/pages/login.html', async (req, res) => {
+router.post('/pages/login', async (req, res) => {
     try { 
         const { email, password } = req.body; 
         const user = await db.getUsers(email, password);
@@ -78,6 +78,7 @@ router.post('/pages/login.html', async (req, res) => {
         sendRefreshToken(res, refreshToken);
         sendAccessToken(req, res, accessToken);
     } catch (error) {
+        console.log(`Error during login: ${error}`); 
         res.status(500).json({
             type: 'error', 
             message: 'Login failed', 
