@@ -11,14 +11,17 @@ const { verify } = require('jsonwebtoken');
 const { protected } = require('../utils/protected');
 
 //get request for protected route 
-router.get('/protected', protected, async (req, res) => {
+router.get('pages/lobby', protected, async (req, res) => {
     try {
         if (req.user)
+        {
+            console.log(`User: ${req.user}`);
             return res.json({
             message: "You are logged in! 🤗",
             type: "success",
             user: req.user,
             });
+        }
         return res.status(500).json({
             message: "You are not logged in! 😢",
             type: "error",
