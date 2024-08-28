@@ -26,8 +26,11 @@ app.use(authRouter);
 //GET requests
 
 app.get('/', (req, res) => {
+  res.redirect('/pages/login');
+})
+
+app.get('/pages/login', (req, res) => {
   res.sendFile(Path.join(__dirname, 'public/pages/login.html')); 
-  res.redirect('/pages/login.html');
 })
 
 
