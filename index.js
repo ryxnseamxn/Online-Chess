@@ -33,6 +33,9 @@ app.get('/pages/login', (req, res) => {
   res.sendFile(Path.join(__dirname, 'public/pages/login.html')); 
 })
 
+// app.get('/pages/lobby', (req, res) => {
+//   res.sendFile(Path.join(__dirname, 'public/pages/lobby.html')); 
+// })
 
 //socket handling 
 io.on('connection', (socket) => {

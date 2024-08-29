@@ -1,3 +1,5 @@
+//psql -d postgres -U me
+
 const Pool = require('pg').Pool; 
 const pool = new Pool({
     user: 'chess', 
