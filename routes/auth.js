@@ -1,3 +1,4 @@
+const Path = require('path'); 
 const express = require('express'); 
 const router = express.Router(); 
 const db = require('../connection'); 
@@ -11,7 +12,7 @@ const { verify } = require('jsonwebtoken');
 const { protected } = require('../utils/protected');
 
 //get request for protected route 
-router.get('pages/lobby', protected, async (req, res) => {
+router.get('/pages/lobby', protected, async (req, res) => {
     try {
         if (req.user)
         {
