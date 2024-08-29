@@ -15,7 +15,6 @@ let login = async () => {
 
     const { accessToken, message, type } = await response.json(); 
     if(type === 'success'){
-        
         window.location.href = '/pages/lobby'; 
     }
     alert('Login Failed'); 
