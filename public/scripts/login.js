@@ -14,8 +14,11 @@ let login = async () => {
     });
 
     const { accessToken, message, type } = await response.json(); 
+    console.log('Type: ' + type);   
     if(type === 'success'){
         window.location.href = '/pages/lobby'; 
+    }else{
+        alert('Login Failed'); 
+        window.location.href = '/pages/lobby'; 
     }
-    alert('Login Failed'); 
 }

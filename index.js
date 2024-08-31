@@ -33,18 +33,9 @@ app.get('/pages/login', (req, res) => {
   res.sendFile(Path.join(__dirname, 'public/pages/login.html')); 
 })
 
-// app.get('/pages/lobby', (req, res) => {
-//   res.sendFile(Path.join(__dirname, 'public/pages/lobby.html')); 
-// })
 
 //socket handling 
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  
-  socket.on('disconnect', () => {
-    console.log('A user disconnected'); 
-  });
-  
+io.on('connection', (socket) => {  
   socket.on('chat message', (msg) => {
     io.emit('chat message', msg);
   });
@@ -58,6 +49,5 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 })
-
 
 module.exports = app; 

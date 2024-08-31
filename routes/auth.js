@@ -14,20 +14,16 @@ const { protected } = require('../utils/protected');
 //get request for protected route 
 router.get('/pages/lobby', protected, async (req, res) => {
     try {
-        if (req.user)
-        {
-            console.log(`User: ${req.user}`);
-            return res.json({
-            message: "You are logged in! 🤗",
-            type: "success",
-            user: req.user,
-            });
+        if (req.user){
+            console.log('user: ' + req.user)
+            return res.sendFile(Path.join(__dirname, '../public/pages/lobby.html')); 
         }
         return res.status(500).json({
             message: "You are not logged in! 😢",
             type: "error",
         });
     } catch (error) {
+        console.log(`Error: ${error}`); 
         return res.status(500).json({
             type: 'error', 
             message: 'An error has occured', 
