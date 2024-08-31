@@ -14,9 +14,18 @@ let login = async () => {
     });
 
     const { accessToken, message, type } = await response.json(); 
+    console.log('Type: ' + type);   
     if(type === 'success'){
-        
+        // await fetch('/pages/lobby', {
+        //     method: 'GET',
+        //     credentials: 'include',
+        //     headers: {
+        //         'Authorization': `Bearer ${accessToken}`,
+        //         'Content-Type': 'application/json'
+        //     }
+        // });   
         window.location.href = '/pages/lobby'; 
+    }else{
+        alert('Login Failed'); 
     }
-    alert('Login Failed'); 
 }
