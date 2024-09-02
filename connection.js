@@ -28,7 +28,7 @@ module.exports = {
         const result = await pool.query('SELECT * FROM users WHERE username = $1', [id]);
         return JSON.stringify(result.rows); 
     },
-    getRefreshToken: async(username) => {
+    getRefreshToken: async (username) => {
         const result = await pool.query('SELECT refresh_token FROM users WHERE username = $1', [username]); 
         const id = result.fields[-1];
         return id ?? false; 
