@@ -1,8 +1,12 @@
-await fetch('/pages/lobby', {
-    method: 'GET',
-    credentials: 'include',
-    headers: {
-        'Authorization': `Bearer buttmunch`,
-        'Content-Type': 'application/json'
+let signOut = async () => {
+    const response = await fetch('/pages/signout', {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+    const { message } = await response.json(); 
+    if(message === 'success'){
+        window.location.href = '/pages/login'; 
     }
-});   
+}

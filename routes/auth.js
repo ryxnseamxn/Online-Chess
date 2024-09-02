@@ -15,7 +15,6 @@ const { protected } = require('../utils/protected');
 router.get('/pages/lobby', protected, async (req, res) => {
     try {
         if (req.user){
-            console.log('user: ' + req.user)
             return res.sendFile(Path.join(__dirname, '../public/pages/lobby.html')); 
         }
         return res.status(500).json({
@@ -23,7 +22,6 @@ router.get('/pages/lobby', protected, async (req, res) => {
             type: "error",
         });
     } catch (error) {
-        console.log(`Error: ${error}`); 
         return res.status(500).json({
             type: 'error', 
             message: 'An error has occured', 
@@ -78,7 +76,6 @@ router.post('/pages/login', async (req, res) => {
         sendRefreshToken(res, refreshToken);
         sendAccessToken(req, res, accessToken);
     } catch (error) {
-        console.log(`Error during login: ${error}`); 
         res.status(500).json({
             type: 'error', 
             message: 'Login failed', 
@@ -88,17 +85,15 @@ router.post('/pages/login', async (req, res) => {
 });
 
 //sign out logic 
-router.post("/logout", (_req, res) => {
+router.post("/pages/signout", (_req, res) => {
     // clear cookies
     res.clearCookie("refreshtoken");
-    return res.json({
-      message: "Logged out successfully! 🤗",
-      type: "success",
-    });
-  });
+    res.clearCookie("accesstoken"); 
+    return res.json({ message: 'success' });
+});
 
 //Refresh token request 
-router.post("/refresh_token", (req, res) => {
+router.post("/refresh_token", async (req, res) => {
     try {
         const { email, password } = req.body; 
         const { refreshtoken } = req.cookies; 
@@ -117,7 +112,7 @@ router.post("/refresh_token", (req, res) => {
                 error, 
             }); 
         }
-        const user = db.getById(id); 
+        const user = await db.getById(id); 
         if (!user){
             return res.status(500).json({
               message: "User doesn't exist! 😢",
@@ -143,12 +138,6 @@ router.post("/refresh_token", (req, res) => {
             accessToken,
         });
         
-        if (!id){
-            return res.status(500).json({
-              message: "Invalid refresh token! 🤔",
-              type: "error",
-            });        
-        }
 
     }catch (error) { 
         res.status(500).json({
