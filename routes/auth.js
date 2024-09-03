@@ -28,7 +28,25 @@ router.get('/pages/lobby', protected, async (req, res) => {
             error, 
         })
     }
-})
+});
+
+router.get('/pages/game', protected, async (req, res) => {
+    try {
+        if (req.user){
+            return res.sendFile(Path.join(__dirname, '../public/pages/game.html')); 
+        }
+        return res.status(500).json({
+            message: "You are not logged in! 😢",
+            type: "error",
+        });
+    } catch (error) {
+        return res.status(500).json({
+            type: 'error', 
+            message: 'An error has occured', 
+            error, 
+        })
+    }
+});
 
 //signup logic 
 router.post("/pages/signup", async (req, res) => {   
