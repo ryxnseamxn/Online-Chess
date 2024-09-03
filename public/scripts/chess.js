@@ -11,6 +11,7 @@ var messages = document.querySelector('#messages');
 var form = document.querySelector('#chat');
 var input = document.querySelector('#input');
 
+
 form.addEventListener('submit', (e) =>{
   e.preventDefault();
   if(input.value){
@@ -95,6 +96,10 @@ function updateStatus () {
   $fen.html(game.fen())
   $pgn.html(game.pgn())
 }
+
+window.exit = function () {
+  window.location.href = '/pages/lobby'; 
+};
 
 var config = {
     pieceTheme: '../img/chesspieces/wikipedia/{piece}.png',

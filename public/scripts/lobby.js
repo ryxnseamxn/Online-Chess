@@ -9,4 +9,8 @@ let signOut = async () => {
     if(message === 'success'){
         window.location.href = '/pages/login'; 
     }
-}
+}; 
+
+let joinGame = () => {
+    window.location.href = '/pages/game'; 
+} 
