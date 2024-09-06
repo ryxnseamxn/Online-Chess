@@ -61,7 +61,11 @@ function onDrop (source, target) {
 // for castling, en passant, pawn promotion
 function onSnapEnd () {
   board1.position(game.fen())
-  socket.emit('chess move', game.fen())
+  userID = socket.id; 
+  socket.emit('chess move', {
+    fen: game.fen(), 
+    userId: userID, 
+  })
 }
 
 function updateStatus () {
@@ -112,4 +116,6 @@ var config = {
 var board1 = Chessboard('board1', config);
 
 
+
 updateStatus()
+  
