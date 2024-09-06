@@ -40,8 +40,9 @@ io.on('connection', (socket) => {
     io.emit('chat message', msg);
   });
 
-  socket.on('chess move', (move) => {
-    io.emit('chess move', move)
+  socket.on('chess move', (data) => {
+    const { fen, user } = data;
+    io.emit('chess move', fen)
   });
 });
 
