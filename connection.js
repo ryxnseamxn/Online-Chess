@@ -1,4 +1,4 @@
-//psql -d postgres -U me
+//psql -d {database} -U {user}
 
 const Pool = require('pg').Pool; 
 const pool = new Pool({
@@ -32,5 +32,10 @@ module.exports = {
         const result = await pool.query('SELECT refresh_token FROM users WHERE username = $1', [username]); 
         const id = result.fields[-1];
         return id ?? false; 
+    }, 
+    newUserObject: async (color, game, username) => {
+        await pool.query('INSERT INTO userObject (color, currentGame, userName) VALUES ($1, $2, $3)', [color, game, username]); 
+        const result = await pool.query('SELECT * FROM userObject WHERE username = $1', [username, password]); 
+        return result.rowCount > 0; 
     }
 }

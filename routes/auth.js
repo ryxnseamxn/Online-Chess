@@ -10,6 +10,7 @@ const {
   } = require("../utils/token");
 const { verify } = require('jsonwebtoken'); 
 const { protected } = require('../utils/protected');
+const User = require('../utils/user'); 
 
 //get request for protected route 
 router.get('/pages/lobby', protected, async (req, res) => {
@@ -33,6 +34,10 @@ router.get('/pages/lobby', protected, async (req, res) => {
 router.get('/pages/game', protected, async (req, res) => {
     try {
         if (req.user){
+            let user = new User(req.id, req.username);
+            user.color = 'black'; 
+            user.currentGame = 'real_game'; 
+            await db.newUserObject(user.color, user.currentGame, req.username); 
             return res.sendFile(Path.join(__dirname, '../public/pages/game.html')); 
         }
         return res.status(500).json({
