@@ -10,6 +10,8 @@ const {
   } = require("../utils/token");
 const { verify } = require('jsonwebtoken'); 
 const { protected } = require('../utils/protected');
+const User = require('../utils/user'); 
+const Game = require('../utils/game'); 
 
 //get request for protected route 
 router.get('/pages/lobby', protected, async (req, res) => {
@@ -33,6 +35,25 @@ router.get('/pages/lobby', protected, async (req, res) => {
 router.get('/pages/game', protected, async (req, res) => {
     try {
         if (req.user){
+            let userObj = JSON.parse(req.user);
+            let userId = userObj[0].id;
+            let username = userObj[0].username;
+            let user = new User(userId, username);
+            let game = new Game(); 
+            user.color = 'black'; 
+            user.currentGame = game; 
+            await db.findGameOnePlayer(); 
+            try {
+                if(!await db.getUserObject(username)){
+                    await db.newUserObject(user.color, user.currentGame, username); 
+                }
+            }catch(error){
+                return res.status(500).json({
+                    type: 'error', 
+                    message: 'An error has occured', 
+                    error, 
+                })
+            }
             return res.sendFile(Path.join(__dirname, '../public/pages/game.html')); 
         }
         return res.status(500).json({

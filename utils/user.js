@@ -19,3 +19,5 @@ class User {
         this.color = null;
     }
 }
+
+module.exports = User; 
