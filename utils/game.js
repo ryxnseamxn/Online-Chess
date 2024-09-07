@@ -20,6 +20,14 @@ class ChessGame {
         return move;  // null if move is invalid
     }
 
+    setWhite(user){
+        this.white = user; 
+    }
+    
+    setBlack(user){
+        this.black = user; 
+    }
+
     getGameStatus() {
         let status = '';
         const turn = this.game.turn() === 'w' ? 'White' : 'Black';

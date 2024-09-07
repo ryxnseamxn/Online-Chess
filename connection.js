@@ -34,8 +34,29 @@ module.exports = {
         return id ?? false; 
     }, 
     newUserObject: async (color, game, username) => {
-        await pool.query('INSERT INTO userObject (color, currentGame, userName) VALUES ($1, $2, $3)', [color, game, username]); 
-        const result = await pool.query('SELECT * FROM userObject WHERE username = $1', [username, password]); 
+        await pool.query('INSERT INTO userobject (color, currentgame, username) VALUES ($1, $2, $3)', [color, game, username]); 
+    },
+    getUserObject: async (username) => {
+        let result = await pool.query('SELECT * FROM userobject WHERE username = $1', [username]); 
+        return result.rowCount > 0;        
+    },
+    newGame: async (gameid, gamestate) => {
+        if(!this.findGame(gameid)){
+            await pool.query('INSERT INTO game (id, gamestate) VALUES ($1, $2)', [gameid, gamestate]); 
+        }
+    }, 
+    findGame: async (gameid) => {
+        let result = await pool.query('SELECT * FROM game WHERE gameid = $1', [gameid]); 
         return result.rowCount > 0; 
+    }, 
+    addPlayer: async (gameid, user) => {
+        let color = Math.random() >= 0.5 ? 'white' : 'black'; 
+        let result = await pool.query(`UPDATE game SET ${color} = $1 WHERE gameid = $2`, [color, user, gameid]); 
+        return result.rowCount(); 
+    },
+    findGameOnePlayer: async () => {
+        let result = await pool.query('SELECT * FROM game WHERE (white IS NOT NULL AND black IS NULL) OR (white IS NULL AND black IS NOT NULL)');
+        console.log(result.rows); 
+        return result.rows[0];
     }
 }
