@@ -1,10 +1,11 @@
 // utils/chessGame.js
-
+const { v4: uuidv4 } = require('uuid');
 const { Chess } = require('chess.js'); // Assuming you're using chess.js library
 
 class ChessGame {
     constructor() {
         this.game = new Chess();
+        this.gameId = uuidv4();
     }
 
     isGameOver() {
@@ -23,7 +24,7 @@ class ChessGame {
     setWhite(user){
         this.white = user; 
     }
-    
+
     setBlack(user){
         this.black = user; 
     }
