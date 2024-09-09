@@ -41,14 +41,17 @@ module.exports = {
         return result.rowCount > 0;        
     },
     newGame: async (gameid, gamestate) => {
-        if(!this.findGame(gameid)){
+        console.log(`Connection enter`);
+        const self = this; // Assign `this` to a variable for proper reference
+        if (!await self.findGame(gameid)) {
             await pool.query('INSERT INTO game (id, gamestate) VALUES ($1, $2)', [gameid, gamestate]); 
         }
-    }, 
+    },
     findGame: async (gameid) => {
+        console.log(`findgame enter`);
         let result = await pool.query('SELECT * FROM game WHERE gameid = $1', [gameid]); 
         return result.rowCount > 0; 
-    }, 
+    },
     addPlayer: async (gameid, user) => {
         let color = Math.random() >= 0.5 ? 'white' : 'black'; 
         let result = await pool.query(`UPDATE game SET ${color} = $1 WHERE gameid = $2`, [color, user, gameid]); 
