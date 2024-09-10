@@ -42,15 +42,17 @@ router.get('/pages/game', protected, async (req, res) => {
             let game = new Game(); 
             user.color = 'black'; 
             user.currentGame = game; 
+            await db.findGameOnePlayer()
             if(!await db.findGameOnePlayer()){
                 await db.newGame(game.gameId, game); 
-            }; 
+            }else{
+
+            }
             try {
                 if(!await db.getUserObject(username)){
                     await db.newUserObject(user.color, user.currentGame.gameId, username); 
                 }
             }catch(error){
-                console.log(`Error: ${error}`); 
                 return res.status(500).json({
                     type: 'error', 
                     message: 'An error has occured when creating the game/user', 

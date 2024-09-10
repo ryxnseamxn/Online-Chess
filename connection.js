@@ -41,15 +41,12 @@ module.exports = {
         return result.rowCount > 0;        
     },
     newGame: async (gameid, gamestate) => {
-        console.log(`Connection enter`);
-        const self = this; // Assign `this` to a variable for proper reference
-        if (!await self.findGame(gameid)) {
+        if (!await module.exports.findGame(gameid)) {
             await pool.query('INSERT INTO game (id, gamestate) VALUES ($1, $2)', [gameid, gamestate]); 
         }
     },
     findGame: async (gameid) => {
-        console.log(`findgame enter`);
-        let result = await pool.query('SELECT * FROM game WHERE gameid = $1', [gameid]); 
+        let result = await pool.query('SELECT * FROM game WHERE id = $1', [gameid]); 
         return result.rowCount > 0; 
     },
     addPlayer: async (gameid, user) => {
@@ -59,7 +56,6 @@ module.exports = {
     },
     findGameOnePlayer: async () => {
         let result = await pool.query('SELECT * FROM game WHERE (white IS NOT NULL AND black IS NULL) OR (white IS NULL AND black IS NOT NULL)');
-        console.log(result.rows); 
         return result.rows[0];
     }
 }
